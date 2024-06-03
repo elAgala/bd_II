@@ -5,6 +5,8 @@
 package IGU;
 
 import IGU.Logueo.InicioSesion;
+import Persistencia.Conexion.MongoOAD;
+
 import java.awt.BorderLayout;
 
 /**
@@ -18,7 +20,7 @@ public class Pantalla extends javax.swing.JFrame {
      */
     public Pantalla() {
         initComponents();
-        InicioSesion is = new InicioSesion();
+        InicioSesion is = new InicioSesion(MongoOAD.obtenerInstancia());
         is.setSize(800,500);
         is.setLocation(0, 0);
         

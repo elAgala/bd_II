@@ -6,6 +6,9 @@ package IGU.Logueo;
 
 import IGU.Menu.MenuPrincipal;
 import Logica.Controladora;
+import Persistencia.Conexion.MongoOAD;
+import org.bson.Document;
+
 import java.awt.BorderLayout;
 
 /**
@@ -13,13 +16,13 @@ import java.awt.BorderLayout;
  * @author hp
  */
 public class InicioSesion extends javax.swing.JPanel {
-
+    private MongoOAD mongoClient;
     /**
      * Creates new form InicioSesion
      */
-    public InicioSesion() {
+    public InicioSesion(MongoOAD mongoClient) {
         initComponents();
-        
+        mongoClient = mongoClient;
         control = new Controladora();
     }
 
@@ -113,19 +116,17 @@ public class InicioSesion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarSesionActionPerformed
-        if (control.getUsuario().getCorreo().equals(correo_electronico.getText()) && control.getUsuario().getContraseña().equals(contraseña.getText())){
-            MenuPrincipal mp = new MenuPrincipal();
-            mp.setSize(800, 500);
-            mp.setLocation(0, 0);
-        
-            this.removeAll();
-            this.add(mp,BorderLayout.CENTER);
-            this.revalidate();
-            this.repaint();
-        }
-        else{
-            this.MensajeError.setText("EL usuario y/o la contraseña son incorrectas");
-        }
+        final Document user = mongoClient.getUserById("665dc3b4f5a86a77968cf4b0");
+        this.MensajeError.setText(user.toString());
+        //        if (control.getUsuario().getCorreo().equals(correo_electronico.getText()) && control.getUsuario().getContraseña().equals(contraseña.getText())){
+//            MenuPrincipal mp = new MenuPrincipal();
+//            mp.setSize(800, 500);
+//            mp.setLocation(0, 0);
+//
+//            this.removeAll();
+//            this.add(mp,BorderLayout.CENTER);
+//            this.revalidate();
+//            this.repaint();
     }//GEN-LAST:event_BotonIniciarSesionActionPerformed
 
     private void correo_electronicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correo_electronicoActionPerformed
