@@ -4,31 +4,39 @@
  */
 package Logica;
 
+import org.bson.Document;
+
 /**
  *
  * @author hp
  */
 public class Producto {
-    private int id_producto;
+    private String id;
     private String titulo;
     private String descripcion;
     private int precio;
-    private int cantidad;
 
-    public Producto(int id_producto, String titulo, String descripcion, int precio) {
-        this.id_producto = id_producto;
+    public Producto(String id_producto, String titulo, String descripcion, int precio) {
+        this.id = id_producto;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.cantidad = 0;
     }
 
-    public int getId_producto() {
-        return id_producto;
+    public static Producto fromDocument(Document document) {
+        String id = document.getObjectId("_id").toString();
+        String titulo = document.getString("titulo");
+        String descripcion = document.getString("descripcion");
+        int precio = document.getInteger("precio");
+        return new Producto(id, titulo, descripcion, precio);
     }
 
-    public void setId_producto(int id_producto) {
-        this.id_producto = id_producto;
+    public String getId_producto() {
+        return id;
+    }
+
+    public void setId_producto(String id_producto) {
+        this.id = id_producto;
     }
 
     public String getTitulo() {
@@ -54,14 +62,4 @@ public class Producto {
     public void setPrecio(int precio) {
         this.precio = precio;
     }
-    
-    public int getCantidad(){
-        return cantidad;
-    }
-    
-    public void setCantidad(int cantidad){
-        this.cantidad = cantidad;
-    }
-    
-    
 }

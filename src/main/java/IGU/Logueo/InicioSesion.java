@@ -6,23 +6,35 @@ package IGU.Logueo;
 
 import IGU.Menu.MenuPrincipal;
 import Logica.Controladora;
+import Logica.Factura;
+import Logica.Producto;
+import Logica.Usuario;
 import Persistencia.Conexion.MongoOAD;
+import Persistencia.Repositorio.FacturaRepo;
+import Persistencia.Repositorio.ProductoRepo;
+import Persistencia.Repositorio.UsuarioRepo;
 import org.bson.Document;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author hp
  */
 public class InicioSesion extends javax.swing.JPanel {
-    private MongoOAD mongoClient;
+    private final UsuarioRepo usuarioRepo;
+    private final ProductoRepo productoRepo;
+    private final FacturaRepo facturaRepo;
     /**
      * Creates new form InicioSesion
      */
-    public InicioSesion(MongoOAD mongoClient) {
+    public InicioSesion(UsuarioRepo usuarioRepo, FacturaRepo facturaRepo, ProductoRepo productoRepo) {
         initComponents();
-        mongoClient = mongoClient;
+        this.usuarioRepo = usuarioRepo;
+        this.facturaRepo = facturaRepo;
+        this.productoRepo = productoRepo;
         control = new Controladora();
     }
 
@@ -116,8 +128,10 @@ public class InicioSesion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarSesionActionPerformed
-        final Document user = mongoClient.getUserById("665dc3b4f5a86a77968cf4b0");
-        this.MensajeError.setText(user.toString());
+        Producto[] productos = this.productoRepo.getAllProducts();
+        Factura[] facturas = this.facturaRepo.getAllFacturas();
+        System.out.println(facturas[0]);
+        this.MensajeError.setText(productos[0].getDescripcion());
         //        if (control.getUsuario().getCorreo().equals(correo_electronico.getText()) && control.getUsuario().getContraseña().equals(contraseña.getText())){
 //            MenuPrincipal mp = new MenuPrincipal();
 //            mp.setSize(800, 500);

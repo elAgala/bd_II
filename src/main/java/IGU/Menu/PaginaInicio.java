@@ -222,8 +222,8 @@ public class PaginaInicio extends javax.swing.JPanel {
         for (JPanel p:paneles){
             if (control.stock.size() > var){
                 produc = control.stock.get(var);
-                PaginaProducto pp = new PaginaProducto(produc.getTitulo(),produc.getDescripcion(),produc.getId_producto());
-                InicializarItems(p,pp);
+               // PaginaProducto pp = new PaginaProducto(produc.getTitulo(),produc.getDescripcion(),produc.getId_producto());
+              //  InicializarItems(p,pp);
             }
             else{
                 JPanel jp = new JPanel();
@@ -240,8 +240,8 @@ public class PaginaInicio extends javax.swing.JPanel {
         Producto produc;
         for (JPanel p:paneles){
             produc = control.stock.get(var);
-            PaginaProducto pp = new PaginaProducto(produc.getTitulo(),produc.getDescripcion(),produc.getId_producto());
-            InicializarItems(p,pp);
+          //  PaginaProducto pp = new PaginaProducto(produc.getTitulo(),produc.getDescripcion(),produc.getId_producto());
+          //  InicializarItems(p,pp);
             var++;
         }
         this.indice = var;
@@ -252,8 +252,8 @@ public class PaginaInicio extends javax.swing.JPanel {
         Producto prod = control.stock.get(producto_id);
         if (!usuario.ExisteEnCarrito(prod))
             usuario.AgregarCarrito(prod);
-        Producto f = usuario.BuscarCarrito(producto_id);
-        f.setCantidad(prod.getCantidad()+1);
+       // Producto f = usuario.BuscarCarrito(producto_id);
+      //  f.setCantidad(prod.getCantidad()+1);
     }
     private Controladora control;
     private int indice;

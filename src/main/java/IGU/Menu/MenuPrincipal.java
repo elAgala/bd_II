@@ -200,8 +200,8 @@ public class MenuPrincipal extends javax.swing.JPanel {
     }//GEN-LAST:event_BotonCarritoActionPerformed
 
     private void BotonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesionActionPerformed
-        InicioSesion is = new InicioSesion(MongoOAD.obtenerInstancia());
-        MostrarPanel(is,this,800,500);
+      //  InicioSesion is = new InicioSesion(MongoOAD.obtenerInstancia());
+        // MostrarPanel(is,this,800,500);
     }//GEN-LAST:event_BotonCerrarSesionActionPerformed
 
     private void BotonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInicioActionPerformed

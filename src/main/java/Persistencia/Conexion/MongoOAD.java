@@ -2,7 +2,9 @@ package Persistencia.Conexion;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Collation;
 import org.bson.Document;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -14,14 +16,22 @@ public class MongoOAD {
 
     private MongoOAD() {
         String url = "mongodb://127.0.01:27017";
-        mongoClient = MongoClients.create(url);
-        db = mongoClient.getDatabase("bd2");
+        this.mongoClient = MongoClients.create(url);
+        this.db = MongoClients.create(url).getDatabase("bd2");
     }
 
     public static MongoOAD obtenerInstancia(){
         if(instancia == null)
             instancia = new MongoOAD();
         return instancia;
+    }
+
+    public MongoDatabase obtenerDb() {
+        return this.db;
+    }
+
+    public void seedearDb() {
+        // Insertar usuarios
     }
 
 //    public MongoDatabase obtenerConexion(String database) throws Error {
@@ -32,8 +42,4 @@ public class MongoOAD {
 //            throw new Error("Error ene la coneccxion a MongoDB");
 //        }
 //    }
-
-     public Document getUserById(String id) {
-        return db.getCollection("Users").find(eq("_id", id)).first();
-    }
 }

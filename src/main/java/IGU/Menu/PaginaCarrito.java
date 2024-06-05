@@ -30,7 +30,7 @@ public class PaginaCarrito extends javax.swing.JPanel {
         if (!usuario.getCarrito().isEmpty()){
             InicializarItem(indice);
             for (Producto p:usuario.getCarrito()){
-                total += p.getCantidad()*p.getPrecio();
+                //total += p.getCantidad()*p.getPrecio();
             }
         }
         this.texto_total.setText(Integer.toString(total));
@@ -217,8 +217,8 @@ public class PaginaCarrito extends javax.swing.JPanel {
         Producto p = usuario.getCarrito().get(i);
         this.TituloCarrito.setText(p.getTitulo());
         this.DescripcionCarrito.setText(p.getDescripcion());
-        this.CantidadCarrito.setText(Integer.toString(p.getCantidad()));
-        this.precio.setText(Integer.toString(p.getCantidad()*p.getPrecio()));
+        //this.CantidadCarrito.setText(Integer.toString(p.getCantidad()));
+        //this.precio.setText(Integer.toString(p.getCantidad()*p.getPrecio()));
     }
 
     private int indice;

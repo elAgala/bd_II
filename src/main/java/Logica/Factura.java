@@ -4,23 +4,41 @@
  */
 package Logica;
 
+import org.bson.Document;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author hp
  */
 public class Factura {
-    private int id_factura;
+    private String id_factura;
     private String pago;
-    private ArrayList<Producto> pedido;
+    private ArrayList<CarritoItem> carrito;
+    private Usuario usuario;
     private int total;
 
-    public Factura(int id_factura, String pago, ArrayList<Producto> pedido, int total) {
+    public Factura(String id_factura, String pago, ArrayList<CarritoItem> carrito, int total, Usuario usuario) {
         this.id_factura = id_factura;
         this.pago = pago;
-        this.pedido = pedido;
+        this.carrito = carrito;
         this.total = total;
+        this.usuario = usuario;
+    }
+
+    public static Factura fromDocument(Document document) {
+        ArrayList<CarritoItem> carrito = new ArrayList<>();
+        List<Document> carritoDocument = document.getList("carrito", Document.class);
+        for(Document carritoDoc : carritoDocument) {
+            carrito.add(CarritoItem.fromDocument(carritoDoc));
+        }
+        String pago = document.getString("pago");
+        int total = document.getInteger("total");
+        String id_factura = document.getObjectId("_id").toString();
+        Document usuario = document.get("usuario", Document.class);
+        return new Factura(id_factura, pago, carrito, total, Usuario.fromDocument(usuario));
     }
 
     public String getPago() {
@@ -31,12 +49,12 @@ public class Factura {
         this.pago = pago;
     }
 
-    public ArrayList<Producto> getPedido() {
-        return pedido;
+    public ArrayList<CarritoItem> getCarrito() {
+        return carrito;
     }
 
-    public void setPedido(ArrayList<Producto> pedido) {
-        this.pedido = pedido;
+    public void setCarrito(ArrayList<CarritoItem> carrito) {
+        this.carrito = carrito;
     }
 
     public int getTotal() {
@@ -47,13 +65,16 @@ public class Factura {
         this.total = total;
     }
 
-    public int getId_factura() {
+    public String getId_factura() {
         return id_factura;
     }
 
-    public void setId_factura(int id_factura) {
+    public void setId_factura(String id_factura) {
         this.id_factura = id_factura;
     }
-    
+
+    public Usuario getUsuario() {return usuario;}
+
+    public void setUsuario(Usuario usuario) {this.usuario = usuario;}
     
 }

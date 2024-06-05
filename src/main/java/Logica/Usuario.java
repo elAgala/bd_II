@@ -4,6 +4,8 @@
  */
 package Logica;
 
+import org.bson.Document;
+
 import java.util.ArrayList;
 
 /**
@@ -18,16 +20,32 @@ public class Usuario {
     private String direccion;
     private ArrayList<Producto> carrito;
     private ArrayList<Factura> facturas;
+    private String id;
 
-    public Usuario(String correo, String contraseña, String nombre, int dni, String direccion) {
+    public Usuario(String id, String correo, String contraseña, String nombre, int dni, String direccion) {
         this.correo = correo;
         this.contraseña = contraseña;
         this.nombre = nombre;
         this.dni = dni;
+        this.id = id;
         this.direccion = direccion;
         this.carrito = new ArrayList<>();
         this.facturas = new ArrayList<>();
     }
+
+    public static Usuario fromDocument(Document document) {
+        String id = document.getObjectId("_id").toString();
+        String correo = document.getString("correo");
+        String contraseña = document.getString("contraseña");
+        String nombre = document.getString("nombre");
+        int dni = document.getInteger("dni");
+        String direccion = document.getString("direccion");
+
+        return new Usuario(id, correo, contraseña, nombre, dni, direccion);
+    }
+
+    public String getId() {return id;}
+    public void setId(String id) {this.id = id;}
 
     public String getCorreo() {
         return correo;
@@ -100,13 +118,13 @@ public class Usuario {
     public boolean ExisteEnCarrito(Producto p){
         return carrito.contains(p);
     }
-    
-    public Producto BuscarCarrito(int id){
-        Producto prod = null;
-        for (Producto p:carrito){
-            if (p.getId_producto() == id)
-                prod = p;
-        }
-        return prod;
-    }
+
+//    public Producto BuscarCarrito(int id){
+//        Producto prod = null;
+//        for (Producto p:carrito){
+//            if (p.getId_producto() == id)
+//                prod = p;
+//        }
+//        return prod;
+//    }
 }

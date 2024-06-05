@@ -5,9 +5,15 @@
 package IGU;
 
 import IGU.Logueo.InicioSesion;
+import Logica.Producto;
+import Logica.Usuario;
 import Persistencia.Conexion.MongoOAD;
+import Persistencia.Repositorio.FacturaRepo;
+import Persistencia.Repositorio.ProductoRepo;
+import Persistencia.Repositorio.UsuarioRepo;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +26,21 @@ public class Pantalla extends javax.swing.JFrame {
      */
     public Pantalla() {
         initComponents();
-        InicioSesion is = new InicioSesion(MongoOAD.obtenerInstancia());
+        MongoOAD mongoClient = MongoOAD.obtenerInstancia();
+
+        UsuarioRepo usuarioRepo = new UsuarioRepo(mongoClient.obtenerDb());
+        FacturaRepo facturaRepo = new FacturaRepo(mongoClient.obtenerDb());
+        ProductoRepo productoRepo = new ProductoRepo(mongoClient.obtenerDb());
+
+        usuarioRepo.seedearCollection();
+        productoRepo.seedearCollection();
+
+        Usuario[] usuarios = usuarioRepo.getAllUsers();
+        Producto[] productos = productoRepo.getAllProducts();
+
+        facturaRepo.seedearCollection(usuarios, productos);
+
+        InicioSesion is = new InicioSesion(usuarioRepo, facturaRepo, productoRepo);
         is.setSize(800,500);
         is.setLocation(0, 0);
         
